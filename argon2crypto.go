@@ -14,7 +14,7 @@ type params struct {
 	keyLength   uint32
 }
 
-func getHashedPassword(password string, p *params) (encodedHash string, err error) {
+func GetHashedPassword(password string, p *params) (encodedHash string, err error) {
 	salt, err := generateRandomBytes(p.saltLength)
 	if err != nil { return "", err }
 	hash := argon2.IDKey([]byte(password), salt, p.iterations, p.memory, p.parallelism, p.keyLength)
@@ -31,6 +31,6 @@ func generateRandomBytes(n uint32) ([]byte, error) {
 	return rawBytes, nil
 }
 
-func check(stored, received string) bool {
+func Check(stored, received string) bool {
 	return stored == received
 }
